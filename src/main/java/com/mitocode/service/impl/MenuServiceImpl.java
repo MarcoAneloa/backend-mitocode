@@ -6,7 +6,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.mitocode.dto.ConsultaListaExamenDTO;
+import com.mitocode.dto.MenuRolDTO;
+import com.mitocode.model.Consulta;
+import com.mitocode.model.Examen;
 import com.mitocode.model.Menu;
 import com.mitocode.repo.IMenuRepo;
 import com.mitocode.service.IMenuService;
@@ -57,6 +62,13 @@ public class MenuServiceImpl implements IMenuService{
 			menus.add(m);
 		});
 		return menus;
+	}
+
+	@Transactional
+	@Override
+	public Integer registrarMenuRol(List<MenuRolDTO> lstMenuRol) {
+		lstMenuRol.forEach(ex -> repo.registrar(ex.getIdMenu(), ex.getIdRol()));
+		return null;
 	}
 
 }

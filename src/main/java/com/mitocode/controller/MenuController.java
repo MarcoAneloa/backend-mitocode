@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mitocode.dto.MenuRolDTO;
 import com.mitocode.exception.ModeloNotFoundException;
 import com.mitocode.model.Menu;
 import com.mitocode.service.IMenuService;
@@ -52,6 +53,12 @@ public class MenuController {
 		Menu pac = service.registrar(objeto);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pac.getIdMenu()).toUri();
 		return ResponseEntity.created(location).build();
+	}
+	
+	@PostMapping("/roles")
+	public ResponseEntity<Object> registrarMenuRol(@Valid @RequestBody List<MenuRolDTO> lstMenuRol) {
+		service.registrarMenuRol(lstMenuRol);
+		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
 	
 	@PutMapping
